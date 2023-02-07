@@ -1,0 +1,55 @@
+
+.dashTitle {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 40px;
+}
+.bonds {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    place-items: center;
+}
+
+.bond {
+    border-radius: 15px;
+    width: 300px;
+    height: 350px;
+    margin: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: darkgreen;
+}
+
+.bond img {
+    width: 200px;
+}
+
+.bond .bondDes {
+    text-align: center;
+}
+
+.bond:hover {
+    transition: 0.4s ease-in;
+    cursor: pointer;
+}
+
+.addToMarketBtn {
+    background-color: transparent;
+    border: 2px solid black;
+    min-width: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 15px;
+}
+
+.addToMarketBtn:hover {
+    background-color: black;
+    color: aliceblue;
+    cursor: pointer;
+}
