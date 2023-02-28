@@ -58,26 +58,31 @@ export const BondRequest = (props) => {
             const bondContract = new web3.eth.Contract(
               Bondcontract.abi,
               contractAddress,
-              {from: wallet}
+              {from: wallet, gasPrice: '20000000000'}
             );
 
-            //let gasLimit = await bondContract.methods.createBondFromOffer(position).estimateGas(
-            //    {
-            //        from: wallet,
-            //        value: 500000000000000,
-            //    }
-            //)
-            console.log(bondContract)
-                
-              //setBondContract(bContract);
-            const marketContract = new web3.eth.Contract(MarketArtifact.abi, marketAddress);
-            let gasLimit = await bondContract.methods.createBondFromOffer(position).estimateGas(
+            bondContract.options.gasPrice = '20000000000';
+            bondContract.options.gas = 5000000;
+            
+            try {
+                let tx = await bondContract.methods.createBondFromOffer('1').send(
                 {
                     from: wallet,
-                    value: 100000000
+                    //value: 500000000000000,
                 }
-            )
-            console.log( `Gas Limit:  ${gasLimit}`)
+            ).on('receipt', function(receipt) {
+                console.log(receipt);
+            })
+            console.log(tx);
+            } catch (err) {
+                console.log(err);
+            }
+            
+                
+              //setBondContract(bContract);
+            //const marketContract = new web3.eth.Contract(MarketArtifact.abi, marketAddress, {from: wallet, gasPrice: '20000000000'});
+            //marketContract.methods.createBondfromOffer(1).send()
+            //console.log( `Gas Limit:  ${marketContract.defaultAccount}`)
 
             }
             
@@ -87,21 +92,6 @@ export const BondRequest = (props) => {
         } else {
             console.log("Metamask Not found");
         }
-    
-
-
-
-
-        //try {
-        //    let gasLimit = await bondContract.methods.createBondFromOffer(position).estimateGas(
-        //        {
-        //            from: wallet
-        //        }
-        //    )
-        //    console.log( `Gas Limit:  ${gasLimit}`)
-        //} catch (err) {
-        //    console.error();
-        //}
     }
     return (
 
@@ -178,64 +168,6 @@ export const BondRequest = (props) => {
                 </Container>
                 
             </Card.Body>
-        
-        {
-
-        //        <div className="bond">
-        //        <div className="reqId">
-        //            <h1>
-        //                Bond Request: {position}
-        //            </h1>
-        //        </div>
-        //        <div className="bondDes">
-        //            <div>
-        //                <p className="token">
-        //                    <b>
-        //                        {token}
-        //                    </b>
-        //                </p>
-        //            </div>
-        //            <div>
-        //                <p className="address">
-        //                    <b>
-        //                        {requestor}
-        //                    </b>
-        //                </p>
-        //            </div>
-        //            <div>
-        //                <p className="address">
-        //                    <b>
-        //                        {taker == "0x0000000000000000000000000000000000000000" ? taker: "no taker"}
-        //                    </b>
-        //                </p>
-        //            </div>
-        //            <div>
-        //                <p className="num">
-        //                    <b>
-        //                    {AmountGiven}
-        //                    </b>
-                //
-        //                </p>
-        //            </div>
-        //            <div>
-        //                <p className="num">
-        //                    <b>
-        //                        {amountRequired}
-        //                    </b>
-        //                </p>
-        //            </div>
-        //            <div>
-        //                <p className="num">
-        //                    <b>
-        //                        {duration}
-        //                    </b>
-        //                </p>
-        //            </div>
-        //        </div>
-                //
-        //        <button className="addToMarketBtn"> addTochart</button>
-        //    </div>
-        }
         </Card>
     )
 }

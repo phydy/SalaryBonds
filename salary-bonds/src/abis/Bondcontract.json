@@ -67,6 +67,19 @@
             "type": "function"
         },
         {
+            "inputs": [],
+            "name": "_router",
+            "outputs": [
+                {
+                    "internalType": "contract IRouter",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "inputs": [
                 {
                     "components": [
@@ -140,6 +153,11 @@
                     "internalType": "address",
                     "name": "market_",
                     "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "router",
+                    "type": "address"
                 }
             ],
             "name": "addBondMarket",
@@ -179,7 +197,13 @@
                 }
             ],
             "name": "createBond",
-            "outputs": [],
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
             "stateMutability": "payable",
             "type": "function"
         },

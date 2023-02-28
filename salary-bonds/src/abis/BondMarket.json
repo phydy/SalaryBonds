@@ -6,6 +6,11 @@
                     "internalType": "address",
                     "name": "bondContract",
                     "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "router",
+                    "type": "address"
                 }
             ],
             "stateMutability": "nonpayable",
@@ -15,6 +20,19 @@
             "inputs": [],
             "name": "Transfer__failed",
             "type": "error"
+        },
+        {
+            "inputs": [],
+            "name": "_router",
+            "outputs": [
+                {
+                    "internalType": "contract IRouter",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
         },
         {
             "inputs": [
@@ -99,6 +117,122 @@
             "name": "deleteSortOpenBonds",
             "outputs": [],
             "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getBond",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract ISuperToken",
+                            "name": "token",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "seller",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "buyer",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountRequired",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "duration",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "start_time",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "end_time",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "position",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IBondMarket.Bond",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getOpenBonds",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "contract ISuperToken",
+                            "name": "token",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "seller",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "buyer",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountRequired",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "duration",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "start_time",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "end_time",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "position",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct IBondMarket.Bond[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
             "type": "function"
         },
         {
