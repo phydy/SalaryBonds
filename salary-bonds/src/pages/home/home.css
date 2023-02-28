@@ -1,0 +1,36 @@
+.home {
+    
+    background-color: rgb(25, 12, 55);
+    display: grid;
+    grid-template-columns: 100%;
+}
+
+.home-header {
+    background-image: url("../../assets/bg-s.jpg");
+    background-size: 100%;
+    background-color: black;
+    height: 350px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+}
+
+.header-left {
+    border-radius: 30px;
+    margin: 20px;
+    align-self: flex-start;
+    justify-content: center;
+    font-size: large;
+    image-rendering: crisp-edges;
+    height: 320px;
+    margin-bottom: 20px;
+    align-content: center;
+
+}
+
+.header-right {
+
+    align-self: flex-end;
+    align-content: center;
+}
+

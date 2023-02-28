@@ -19,27 +19,12 @@
         {
             "inputs": [
                 {
-                    "internalType": "contract ISuperToken",
-                    "name": "token_",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "seller_",
-                    "type": "address"
-                },
-                {
                     "internalType": "uint256",
-                    "name": "amountRequired_",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "duration_",
+                    "name": "bondId_",
                     "type": "uint256"
                 }
             ],
-            "name": "addBond",
+            "name": "acquireBond",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -53,18 +38,13 @@
                 },
                 {
                     "internalType": "address",
-                    "name": "requestor_",
+                    "name": "seller_",
                     "type": "address"
                 },
                 {
                     "internalType": "address",
                     "name": "taker_",
                     "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "amountGiven_",
-                    "type": "uint256"
                 },
                 {
                     "internalType": "uint256",
@@ -75,11 +55,68 @@
                     "internalType": "uint256",
                     "name": "duration_",
                     "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "start_time_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "end_time_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "position_",
+                    "type": "uint256"
                 }
             ],
-            "name": "requestBond",
+            "name": "addBond",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "pos_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "deleteSortOpenBonds",
             "outputs": [],
-            "stateMutability": "payable",
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "bondId_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "currentPos_",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updatePosition",
+            "outputs": [],
+            "stateMutability": "nonpayable",
             "type": "function"
         },
         {

@@ -6,7 +6,8 @@ export const BONDS = [
         amountRequired: 100000000,
         duration: 30,
         startTime: 1892637364,
-        endTime: 18936474637
+        endTime: 18936474637,
+        position: 1
     },
     {
         token: "0xshshdjdhjdgsj",
@@ -15,7 +16,8 @@ export const BONDS = [
         amountRequired: 100000000,
         duration: 30,
         startTime: 1892637364,
-        endTime: 18936474637
+        endTime: 18936474637,
+        position: 2
     },
     {
         token: "0xshshdjdhjdgsj",
@@ -24,7 +26,8 @@ export const BONDS = [
         amountRequired: 100000000,
         duration: 30,
         startTime: 1892637364,
-        endTime: 18936474637
+        endTime: 18936474637,
+        position: 1
     },
     {
         token: "0xshshdjdhjdgsj",
@@ -33,6 +36,7 @@ export const BONDS = [
         amountRequired: 100000000,
         duration: 30,
         startTime: 1892637364,
-        endTime: 18936474637
+        endTime: 18936474637,
+        position: 1
     }
 ]

@@ -1,27 +1,55 @@
 
 .dashTitle {
-    margin-top: 10px;
+    margin-top: 1px;
     text-align: center;
-    font-size: 40px;
+    font-size: 30;
+}
+
+.dashboard {
+    height: 100%;
+    background-image: url("../../assets/bg-s.jpg");
+    background-attachment: local;
+    background-position: 100%;
+    margin-top: 20px;
 }
 .bonds {
     width: 100%;
     height: auto;
     display: grid;
     grid-template-columns: 50% 50%;
+    row-gap: 20px;
     place-items: center;
+    overflow: hidden;
+    word-break: break-all;
 }
 
 .bond {
     border-radius: 15px;
-    width: 300px;
-    height: 350px;
+    width: 60%;
+    height: 400px;
     margin: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: darkgreen;
+    background-color: rgb(95, 177, 95);
+}
+
+.bond p {
+    margin: 5px;
+    background-color: rgb(77, 111, 184);
+    color: rgb(26, 80, 127);
+    text-align: center;
+}
+
+.bond .bondDes .token {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+    font-size: small;
+    text-overflow: ellipsis;
+    
+
+
 }
 
 .bond img {

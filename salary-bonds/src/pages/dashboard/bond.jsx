@@ -3,10 +3,14 @@ import logo from "../../logo.svg";
 
 
 export const Bond = (props) => {
-    const {token, seller, buyer, amountRequired, duration, startTime, endTime} = props.data;
+    const {token, seller, buyer, amountRequired, duration, startTime, endTime, position} = props.data;
     return (
         <div className="bond">
-            <img src={logo} alt="just a sample"></img>
+            <div className="bondId">
+                <h1>
+                    Bond: {position}
+                </h1>
+            </div>
             <div className="bondDes">
                 <p>
                     <b>
@@ -24,7 +28,7 @@ export const Bond = (props) => {
                     </b>
                 </p>
                 <p>
-                    ${amountRequired}
+                    {amountRequired}
                 </p>
                 <p>
                     <b>
@@ -39,6 +43,11 @@ export const Bond = (props) => {
                 <p>
                     <b>
                         {endTime}
+                    </b>
+                </p>
+                <p>
+                    <b>
+                        {position}
                     </b>
                 </p>
             </div>

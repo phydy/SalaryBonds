@@ -1,0 +1,13 @@
+{
+  "80001": {
+    "BondMarket": [
+      "0x3Af1136ee57D03d808C8276E868C7Faa1A0Fc1F6"
+    ],
+    "SalaryBondContract": [
+      "0x77458D8Feb1d4015E4C4Eef60a93e33C0881Cc79"
+    ],
+    "TestToken": [
+      "0x3ac1aBe9654b1255d3Ff5c3C6969eA5Ba14Ce4d9"
+    ]
+  }
+}
