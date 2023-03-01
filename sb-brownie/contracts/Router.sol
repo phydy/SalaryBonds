@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import {IBondContract} from "lib/interfaces/IBondContract.sol";
+import {IBondContract} from "../interfaces/IBondContract.sol";
 
-import {IBondMarket} from "lib/interfaces/IBondMarket.sol";
+import {IBondMarket} from "../interfaces/IBondMarket.sol";
 import {ISuperfluid, ISuperToken, ISuperApp, ISuperAgreement, SuperAppDefinitions} from "@superfluid/interfaces/superfluid/ISuperfluid.sol";
 
 import {SuperTokenV1Library} from "@superfluid/apps/SuperTokenV1Library.sol";
@@ -32,9 +32,9 @@ error InvalidToken();
 /// @dev Thrown when the agreement is other than the Constant Flow Agreement V1
 error InvalidAgreement();
 
-error No__Flow();
+error No__Flow(uint8);
 
-error Flow__Deficit();
+error Flow__Deficit(uint8);
 
 contract Router is SuperAppBase {
     /// @notice Importing the SuperToken Library to make working with streams easy.
@@ -67,8 +67,7 @@ contract Router is SuperAppBase {
     constructor(
         ISuperfluid host,
         IConstantFlowAgreementV1 _cfa,
-        address bondCon,
-        string memory regKey
+        address bondCon
     ) {
         assert(address(host) != address(0));
         //assert(address(acceptedToken) != address(0));
@@ -80,12 +79,11 @@ contract Router is SuperAppBase {
         // Registers Super App, indicating it is the final level (it cannot stream to other super
         // apps), and that the `before*` callbacks should not be called on this contract, only the
         // `after*` callbacks.
-        host.registerAppWithKey(
+        host.registerApp(
             SuperAppDefinitions.APP_LEVEL_FINAL |
                 SuperAppDefinitions.BEFORE_AGREEMENT_CREATED_NOOP |
                 SuperAppDefinitions.BEFORE_AGREEMENT_UPDATED_NOOP |
-                SuperAppDefinitions.BEFORE_AGREEMENT_TERMINATED_NOOP,
-            regKey
+                SuperAppDefinitions.BEFORE_AGREEMENT_TERMINATED_NOOP
         );
     }
 
@@ -117,9 +115,9 @@ contract Router is SuperAppBase {
 
         SellerBonds storage ids = sellerBondIds[user_];
         if (inFlowRate == 0) {
-            revert No__Flow();
+            revert No__Flow(1);
         } else if (inFlowRate < expectedFlow) {
-            revert Flow__Deficit();
+            revert Flow__Deficit(2);
         } else {
             //sellerBondIds[user_].length == 0 ? sellerBondIds[user_].push(bondId_) :
             if (ids.outFlow == 0) {
@@ -137,7 +135,7 @@ contract Router is SuperAppBase {
         int96 outFlowRate = _acceptedToken.getFlowRate(address(this), user_);
         _acceptedToken.updateFlow(user_, (outFlowRate - expectedFlow));
 
-        _acceptedToken.createFlow(streamReceiver, expectedFlow, new bytes(0));
+        _acceptedToken.createFlow(streamReceiver, expectedFlow);
     }
 
     function afterAgreementCreated(

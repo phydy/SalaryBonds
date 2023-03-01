@@ -1,10 +1,16 @@
 {
   "80001": {
     "BondMarket": [
-      "0x3Af1136ee57D03d808C8276E868C7Faa1A0Fc1F6"
+      "0x2975A4Bd0958fCC7e053c83144A621FE5A17A999"
+    ],
+    "CFA": [
+      "0x49e565Ed1bdc17F3d220f72DF0857C26FA83F873"
+    ],
+    "Router": [
+      "0x70Ac16F0014C27CF838C7e3B01E8F684E1e276ee"
     ],
     "SalaryBondContract": [
-      "0x77458D8Feb1d4015E4C4Eef60a93e33C0881Cc79"
+      "0xbae7B2D8a8123Ba4e9f829EbE3d7f33e9d90A649"
     ],
     "TestToken": [
       "0x3ac1aBe9654b1255d3Ff5c3C6969eA5Ba14Ce4d9"

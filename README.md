@@ -70,4 +70,4 @@ Deployment Addresses
     "SalaryBondContract":
       "0xbae7B2D8a8123Ba4e9f829EbE3d7f33e9d90A649"
     "TestToken":
-      "0x3ac1aBe9654b1255d3Ff5c3C6969eA5Ba14Ce4d9"
+      "0xC89b03c370a733881aaC610E84265E3559dDD984"
