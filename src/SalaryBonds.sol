@@ -148,10 +148,10 @@ contract SalaryBondContract is Ownable {
         uint256 amountGiven_,
         uint256 amountRequired_,
         uint256 duration_
-    ) external payable {
+    ) external payable returns (uint256 amount) {
         require(amountGiven_ <= amountRequired_, "non profitable");
-
-        require(msg.value == 0.0005 ether, "pay fee");
+        amount = _bondRequestCount.current();
+        require(msg.value >= 0.0005 ether, "pay fee");
         bool success = token_.transferFrom(
             msg.sender,
             address(this),
@@ -171,7 +171,8 @@ contract SalaryBondContract is Ownable {
             duration: duration_,
             position: pos
         });
-        _bondRequests[_bondRequestCount.current()] = request;
+        _bondRequests[amount] = request;
+        _bondRequestCount.increment();
         _activeBondrequests.push(request);
     }
 
@@ -210,6 +211,14 @@ contract SalaryBondContract is Ownable {
                 new bytes(0)
             );
         }
+        bool success = bondRequest.token.transfer(
+            msg.sender,
+            bondRequest.amountGiven
+        );
+
+        if (!success) {
+            revert Transfer__failed();
+        }
         uint256 id_ = _bondMarket.addBond(
             bondRequest.token,
             bondRequest.requestor,
@@ -235,7 +244,7 @@ contract SalaryBondContract is Ownable {
         );
         _router.addBondtoUser(
             bondRequest.token,
-            bondRequest.taker,
+            msg.sender,
             bondRequest.requestor,
             id_,
             flowRate
@@ -290,11 +299,9 @@ contract SalaryBondContract is Ownable {
         count = _activeBonds.length;
     }
 
-    function getBondrequest(uint256 id_)
-        external
-        view
-        returns (IBondMarket.BondRequest memory request)
-    {
+    function getBondrequest(
+        uint256 id_
+    ) external view returns (IBondMarket.BondRequest memory request) {
         request = _bondRequests[id_];
     }
 

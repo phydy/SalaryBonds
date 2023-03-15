@@ -79,7 +79,7 @@ dotenv: .env
 wallets:
   from_key: ${PRIVATE_KEY}
   from_test1: ${ACOUUNT_1}
-  #from_test2: ${ACOUUNT_2}
+  from_test2: ${ACOUUNT_2}
   #from_test3: ${ACOUUNT_3}
 #
 #from_mnemonic: ${MNEMONIC}

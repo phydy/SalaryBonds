@@ -13,12 +13,12 @@
 <p>
     The project was tested on the local development evnironment and mumbai testnet. It is deployed to gnosis chain.
 </p>
-### Contracts
+ <h2>Contracts</h2>
 
 <ul>
     <li> SlalaryBondContract</li>
     <p>
-        Contains the logic for cration of the bonds and posting them as open or filled and handling acl permissions
+        Contains the logic for creation of the bonds and posting them as open or filled and handling acl permissions
     </p>
         <li> marketContract</li>
     <p>

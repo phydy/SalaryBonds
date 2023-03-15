@@ -44,6 +44,9 @@ export function Dashboard(props) {
                     ))
                 }
             </div>
+            <div className="footer">
+                Footer
+            </div>
         </div>
     )
 }

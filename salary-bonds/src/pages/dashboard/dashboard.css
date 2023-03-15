@@ -5,6 +5,11 @@
     font-size: 30;
 }
 
+.footer {
+    position: fixed;
+    bottom: 0px;
+    height: 50px;
+}
 .dashboard {
     height: 700px;
     background-image: url("../../assets/bg-s.jpg");

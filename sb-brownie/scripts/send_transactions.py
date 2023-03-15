@@ -2,6 +2,9 @@ from brownie import web3, Router, interface, CFA, TestToken, SalaryBondContract,
 
 account = accounts.add(config["wallets"]["from_key"])
 
+account1 = accounts.add(config["wallets"]["from_test1"])
+
+
 _host = "0xEB796bdb90fFA0f28255275e16936D25d3418603"
 _factory = "0x200657E2f123761662567A1744f9ACAe50dF47E6"
 _cfa = "0x49e565Ed1bdc17F3d220f72DF0857C26FA83F873"
@@ -24,7 +27,7 @@ def main():
     bytes_data = web3.toBytes(hexstr=f"{callData}")
     sent_data = bytes_data[:(len(bytes_data) - 32)]
     host.callAgreement(cfa, sent_data,
-                       "", {"from": account})
+                       "", {"from": account1})
 
 
 if __name__ == "__main__":

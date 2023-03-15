@@ -1,6 +1,7 @@
 from brownie import web3, Router, interface, CFA, TestToken, SalaryBondContract, BondMarket, accounts, config, convert
 
 account = accounts.add(config["wallets"]["from_key"])
+account2 = accounts.add(config["wallets"]["from_test"])
 
 _host = "0xEB796bdb90fFA0f28255275e16936D25d3418603"
 _factory = "0x200657E2f123761662567A1744f9ACAe50dF47E6"
@@ -16,7 +17,7 @@ def main():
     token = TestToken[-1]
     bondContract = SalaryBondContract[-1]
     bondContract.createBond(token.address, convert.to_uint("1200 ether"), 2529000, {
-                            "from": account, "value": convert.to_uint("0.0005 ether")})
+                            "from": account2, "value": convert.to_uint("0.0005 ether")})
 
 
 if __name__ == "__main__":

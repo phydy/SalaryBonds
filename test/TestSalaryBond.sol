@@ -72,6 +72,60 @@ contract CounterTest is SuperfluidTester {
     function testAddBond() public {
         vm.startPrank(bondseller);
 
+        /**
+         * create a stream to the router
+         */
+        bytes memory callData = abi.encodeCall(
+            sf.cfa.createFlow,
+            (
+                ISuperToken(address(token)),
+                address(router),
+                0.005 ether,
+                new bytes(0)
+            )
+        );
+        sf.host.callAgreement(sf.cfa, callData, new bytes(0));
+
+        int96 flow = ISuperToken(address(token)).getFlowRate(
+            address(router),
+            bondseller
+        );
+        int96 flow1 = ISuperToken(address(token)).getFlowRate(
+            bondseller,
+            address(router)
+        );
+        assert(flow == flow1);
+
+        uint256 duration = 30 days;
+        uint256 amount = uint256(int256(flow)) * duration;
+
+        uint256 amountReceive = amount - ((amount * 50) / 1000);
+        vm.deal(bondseller, 1 ether);
+
+        uint256 id = bondContract.createBond{value: 0.0005 ether}(
+            ISuperToken(address(token)),
+            amountReceive,
+            duration
+        );
+
+        assert(id == 1);
+        vm.stopPrank();
+
+        vm.startPrank(buyer);
+        assert(ISuperToken(address(token)).balanceOf(buyer) == 1000000 ether);
+
+        IBondMarket.Bond memory bond_ = bondMarket.getBond(id);
+
+        assert(bond_.token == ISuperToken(address(token)));
+        assert(bond_.amountRequired == amountReceive);
+    }
+
+    function testAddBondAndBuy() public {
+        vm.startPrank(bondseller);
+
+        /**
+         * create a stream to the router
+         */
         bytes memory callData = abi.encodeCall(
             sf.cfa.createFlow,
             (
@@ -130,5 +184,60 @@ contract CounterTest is SuperfluidTester {
             buyer
         );
         assert(fr_ > 0);
+    }
+
+    function testRequestBond() public {
+        vm.startPrank(buyer);
+        vm.deal(buyer, 100 ether);
+
+        assert(ISuperToken(address(token)).balanceOf(buyer) == 1000000 ether);
+        ISuperToken(address(token)).approve(address(bondContract), 1000 ether);
+
+        uint256 id = bondContract.requestBond{value: 0.0005 ether}(
+            ISuperToken(address(token)),
+            1000 ether,
+            1100 ether,
+            30 days
+        );
+        assert(id == 1);
+    }
+
+    function testgiveRequestedBond() public {
+        vm.startPrank(buyer);
+        assert(ISuperToken(address(token)).balanceOf(buyer) == 1000000 ether);
+        ISuperToken(address(token)).approve(address(bondContract), 1000 ether);
+        vm.deal(buyer, 10 ether);
+        uint256 id = bondContract.requestBond{value: 0.0005 ether}(
+            ISuperToken(address(token)),
+            1000 ether,
+            1100 ether,
+            30 days
+        );
+        assert(id == 1);
+        vm.stopPrank();
+        vm.startPrank(token_holder);
+        vm.deal(token_holder, 100 ether);
+        assert(
+            ISuperToken(address(token)).balanceOf(token_holder) >= 100000 ether
+        );
+
+        bytes memory callData = abi.encodeCall(
+            sf.cfa.createFlow,
+            (
+                ISuperToken(address(token)),
+                address(router),
+                0.01 ether,
+                new bytes(0)
+            )
+        );
+        sf.host.callAgreement(sf.cfa, callData, new bytes(0));
+
+        int96 flow1 = ISuperToken(address(token)).getFlowRate(
+            token_holder,
+            address(router)
+        );
+        assert(flow1 == 0.01 ether);
+
+        bondContract.createBondFromOffer{value: 0.0005 ether}(id);
     }
 }

@@ -14,6 +14,13 @@ interface IBondContract {
         uint256 duration_
     ) external returns (uint256);
 
+    function requestBond(
+        ISuperToken token_,
+        uint256 amountGiven_,
+        uint256 amountRequired_,
+        uint256 duration_
+    ) external payable returns (uint256);
+
     function activateBond(IBondMarket.Bond memory bond_) external;
 
     function getActiveBondCount() external view returns (uint256 count);

@@ -67,8 +67,7 @@ contract Router is SuperAppBase {
     constructor(
         ISuperfluid host,
         IConstantFlowAgreementV1 _cfa,
-        address bondCon,
-        string memory regKey
+        address bondCon //, //string memory regKey
     ) {
         assert(address(host) != address(0));
         //assert(address(acceptedToken) != address(0));
@@ -80,20 +79,25 @@ contract Router is SuperAppBase {
         // Registers Super App, indicating it is the final level (it cannot stream to other super
         // apps), and that the `before*` callbacks should not be called on this contract, only the
         // `after*` callbacks.
-        host.registerAppWithKey(
+        //host.registerAppWithKey(
+        //    SuperAppDefinitions.APP_LEVEL_FINAL |
+        //        SuperAppDefinitions.BEFORE_AGREEMENT_CREATED_NOOP |
+        //        SuperAppDefinitions.BEFORE_AGREEMENT_UPDATED_NOOP |
+        //        SuperAppDefinitions.BEFORE_AGREEMENT_TERMINATED_NOOP,
+        //    regKey
+        //);
+        host.registerApp(
             SuperAppDefinitions.APP_LEVEL_FINAL |
                 SuperAppDefinitions.BEFORE_AGREEMENT_CREATED_NOOP |
                 SuperAppDefinitions.BEFORE_AGREEMENT_UPDATED_NOOP |
-                SuperAppDefinitions.BEFORE_AGREEMENT_TERMINATED_NOOP,
-            regKey
+                SuperAppDefinitions.BEFORE_AGREEMENT_TERMINATED_NOOP
         );
     }
 
-    function getAddressAvailable(ISuperToken _acceptedToken, address user)
-        external
-        view
-        returns (int96 available)
-    {
+    function getAddressAvailable(
+        ISuperToken _acceptedToken,
+        address user
+    ) external view returns (int96 available) {
         SellerBonds memory info = sellerBondIds[user];
         int96 outFlowRate = _acceptedToken.getFlowRate(address(this), user);
         int96 inFlowRate = _acceptedToken.getFlowRate(user, address(this));
@@ -178,10 +182,10 @@ contract Router is SuperAppBase {
         newCtx = _doUpdate(_ctx, _superToken);
     }
 
-    function _doUpdate(bytes calldata _ctx, ISuperToken _superToken)
-        private
-        returns (bytes memory newCtx)
-    {
+    function _doUpdate(
+        bytes calldata _ctx,
+        ISuperToken _superToken
+    ) private returns (bytes memory newCtx) {
         ISuperfluid.Context memory dContext = _host.decodeCtx(_ctx);
         address sender = dContext.msgSender;
         int96 inFlowRate = _superToken.getFlowRate(sender, address(this));
@@ -222,10 +226,10 @@ contract Router is SuperAppBase {
     /// net flow rate.
     /// @param ctx The context byte array from the Host's calldata.
     /// @return newCtx The new context byte array to be returned to the Host.
-    function _updateOutflow(bytes calldata ctx, ISuperToken _acceptedToken)
-        private
-        returns (bytes memory newCtx)
-    {
+    function _updateOutflow(
+        bytes calldata ctx,
+        ISuperToken _acceptedToken
+    ) private returns (bytes memory newCtx) {
         newCtx = ctx;
         ISuperfluid.Context memory dContext = _host.decodeCtx(ctx);
         //int96 netFlowRate = _acceptedToken.getNetFlowRate(address(this));
